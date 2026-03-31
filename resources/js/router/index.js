@@ -49,10 +49,13 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (to.meta.requiresAuth && !userStore.isAuthenticated) {
+        document.title = to.name;
         next('/login');
     } else if (to.meta.guest && userStore.isAuthenticated) {
+        document.title = to.name;
         next('/');
     } else {
+        document.title = to.name;
         next();
     }
 });
