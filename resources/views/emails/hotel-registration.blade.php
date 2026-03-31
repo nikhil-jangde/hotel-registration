@@ -20,9 +20,10 @@ Below is a summary of the information saved in our records:
 ### ⚙️ Property Info
 - **Star Rating:** {{ $hotel->starRating ?? 'N/A' }} ⭐
 - **Total Rooms:** {{ $hotel->totalRooms ?? 'N/A' }}
+- **Status Date:** {{ now()->toDayDateTimeString() }}
 </x-mail::panel>
 
-<x-mail::button :url="'http://localhost'">
+<x-mail::button :url="'http://localhost:8000'">
 Check Status
 </x-mail::button>
 
