@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
-use App\Jobs\SendHotelRegistrationEmail;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -26,11 +25,6 @@ class HotelController extends Controller
         unset($data['confirmPassword']);
 
         $hotel = Hotel::create($data);
-
-        // Notify via email in queue using PHPMailer Job
-        if (!empty($hotel->email)) {
-            SendHotelRegistrationEmail::dispatch($hotel);
-        }
 
         return response()->json($hotel, 201);
     }
