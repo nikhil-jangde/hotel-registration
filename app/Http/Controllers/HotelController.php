@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
 
+use App\Jobs\SendHotelRegistrationEmailJob;
+
 class HotelController extends Controller
 {
     public function index()
@@ -25,6 +27,11 @@ class HotelController extends Controller
         unset($data['confirmPassword']);
 
         $hotel = Hotel::create($data);
+
+        // Dispatch Email Job using the email provided in the registration request
+        if ($request->has('email')) {
+            SendHotelRegistrationEmailJob::dispatch($request->email, $hotel);
+        }
 
         return response()->json($hotel, 201);
     }
